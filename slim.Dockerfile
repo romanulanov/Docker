@@ -7,7 +7,8 @@ WORKDIR /app
 RUN apt-get update && \
     apt-get install -y git 
 
-RUN git clone --branch ${GIT_TAG} https://github.com/MrDave/StaticJinjaPlus.git
+RUN git clone https://github.com/MrDave/StaticJinjaPlus.git /app/StaticJinjaPlus \
+    && cd /app/StaticJinjaPlus && git checkout $GIT_TAG
 
 WORKDIR /app/StaticJinjaPlus
 
