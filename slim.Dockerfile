@@ -4,11 +4,13 @@ FROM python:slim
 
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install -y git 
+RUN apt-get update \
+    && apt-get install -y git \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/MrDave/StaticJinjaPlus.git /app/StaticJinjaPlus \
-    && cd /app/StaticJinjaPlus && git checkout $GIT_TAG
+    && cd /app/StaticJinjaPlus \
+    && git checkout $GIT_TAG
 
 WORKDIR /app/StaticJinjaPlus
 
