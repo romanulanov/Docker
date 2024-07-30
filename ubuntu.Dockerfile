@@ -1,6 +1,6 @@
 ARG GIT_TAG=main
 
-FROM ubuntu
+FROM ubuntu:20.04
 
 WORKDIR /app
 
