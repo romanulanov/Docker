@@ -19,7 +19,7 @@ WORKDIR /app/StaticJinjaPlus
 
 RUN python3 -m venv venv \
     && . venv/bin/activate && \
-    && pip install -r requirements.txt && \
+    && pip install -r requirements.txt --no-cache-dir \
     && python3 main.py
 
 ENTRYPOINT ["python", "main.py"]

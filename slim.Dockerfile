@@ -14,7 +14,7 @@ RUN git clone https://github.com/MrDave/StaticJinjaPlus.git /app/StaticJinjaPlus
 
 WORKDIR /app/StaticJinjaPlus
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt --no-cache-dir 
 
 ENTRYPOINT ["python", "main.py"]
 
