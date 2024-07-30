@@ -11,10 +11,12 @@ RUN apt-get update \
     python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/MrDave/StaticJinjaPlus.git /app/StaticJinjaPlus \
-    && cd /app/StaticJinjaPlus \
-    && git checkout $GIT_TAG
+ADD https://github.com/MrDave/StaticJinjaPlus/archive/${GIT_TAG}.tar.gz /app/StaticJinjaPlus.tar.gz
 
+RUN tar -xzf /app/StaticJinjaPlus.tar.gz -C /app --strip-components=1 \
+    && rm /app/StaticJinjaPlus.tar.gz \
+    && cd /app/StaticJinjaPlus 
+    
 WORKDIR /app/StaticJinjaPlus
 
 RUN python3 -m venv venv \
