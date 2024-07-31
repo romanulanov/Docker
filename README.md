@@ -177,7 +177,7 @@ Example render of `index.html`
 Можно построить образ на основе ubuntu и slim-python. Доступны три версии: 0.1.0, 0.1.1 и latest. Например, чтобы построить образ на основе slim-python версии 0.1.0 перейдите в папку с докерфайлом и запустите команду для сборки:
 ```commandline
 cd slim
-docker build -f slim.Dockerfile -t static-jinja-plus:<version>-slim .
+docker build -f slim.Dockerfile -t static-jinja-plus:0.1.0-slim .
 ```
 После построения образа в терминале появится сообщение 
 ```commandline
