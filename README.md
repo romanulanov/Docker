@@ -172,9 +172,32 @@ build
 Example render of `index.html`
 
 
-## Using Docker
+## Сборка докер образа
 
-You can create image using slim-python or ubuntu templates and three different versions: 0.1.0, 0.1.1 and latest. To build on slim you can run `docker build -f slim.Dockerfile -t static-jinja-plus:<version>-slim .` 
+Можно построить образ на основе ubuntu и slim-python. Доступны три версии: 0.1.0, 0.1.1 и latest. Например, чтобы построить образ на основе slim-python версии 0.1.0 перейдите в папку с докерфайлом и запустите команду для сборки:
+```commandline
+cd slim
+docker build -f slim.Dockerfile -t static-jinja-plus:<version>-slim .
+```
+После построения образа в терминале появится сообщение 
+```commandline
+Successfully tagged static-jinja-plus:0.1.0-slim
+```
+Чтобы запустить образ:
+```commandline
+docker run -it static-jinja-plus:0.1.0-slim  bash 
+```
+По умолчанию путь к сгенерированным шаблонам указан как `/app/staticjinjaplus/build`. Также вы можете скачать с [репозитория](https://hub.docker.com/repository/docker/turnsourcream823/static-jinja-plus/) на Docker Hub.
 
-After creating an image, user command `docker run -v <image_name>:<absolute path_to_folder with templates> <image_id>` to create docker container. Default path to folder with generated templates - `/app/staticjinjaplus/build`.
-Also you can download image from [repository](https://hub.docker.com/repository/docker/turnsourcream823/static-jinja-plus/).
+Чтобы выложить образ на Docker Hub сначала залогиньтесь:
+```commandline
+docker login
+```
+При сборке образа укажите ваш логин в названии образа. Например, если мой логин turnsourcream823, то при сборке я воспользуюсь командой:
+```commandline
+docker build -f slim.Dockerfile -t turnsourcream823/static-jinja-plus:0.1.0-slim .
+```
+Теперь, чтобы выложить образ я воспользуюсь командой:
+```commandline
+docker pull turnsourcream823/static-jinja-plus
+```
