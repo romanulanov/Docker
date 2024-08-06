@@ -20,6 +20,7 @@
    - `-v "$(pwd)/build:/StaticJinjaPlus/build"`: смонтируйте папку `build` с вашего локального компьютера в контейнер, чтобы получить результаты работы StaticJinjaPlus.
    - `tagname` замените на один из [тэгов](https://hub.docker.com/repository/docker/turnsourcream823/static-jinja-plus/tags) из Docker Hub.
 
+Ссылка на [DockerHub](https://hub.docker.com/repository/docker/turnsourcream823/static-jinja-plus/).
 ## Аргументы для создания образа
 В докерфайлах проекта аргументы заданы по умолчанию как:
 ```bash
