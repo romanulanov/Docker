@@ -1,33 +1,41 @@
-# StaticJinjaPlus
+# StaticJinjaPlusPort
 
-StaticJinjaPlus is a tool to build static sites using [Jinja](https://jinja.palletsprojects.com/).
+Порт для генератора статических файлов [StaticJinjaPlus](https://github.com/MrDave/StaticJinjaPlus).
 
 ## Сборка докер образа
 
-Можно построить образ на основе ubuntu и slim-python. Доступны три версии: 0.1.0, 0.1.1 и latest. Например, чтобы построить образ на основе slim-python версии 0.1.0 перейдите в папку с докерфайлом и запустите команду для сборки:
-```commandline
-cd slim
-docker build -f slim.Dockerfile -t static-jinja-plus:0.1.0-slim .
-```
-После построения образа в терминале появится сообщение 
-```commandline
-Successfully tagged static-jinja-plus:0.1.0-slim
-```
-Чтобы запустить образ:
-```commandline
-docker run -it static-jinja-plus:0.1.0-slim  bash 
-```
-По умолчанию путь к сгенерированным шаблонам указан как `/app/staticjinjaplus/build`. Также вы можете скачать с [репозитория](https://hub.docker.com/repository/docker/turnsourcream823/static-jinja-plus/) на Docker Hub.
+1. Установите [Docker](https://www.docker.com/), если он ещё не установлен.:
+ 
+2. Загрузите образ из Docker Hub: 
+    ```bash
+   docker pull turnsourcream823/static-jinja-plus:tagname
+   ```  
+3. Запустите контейнер:
+    ```bash
+   docker run --rm -v "$(pwd)/templates:/WORKDIR/templates" -v "$(pwd)/output:/WORKDIR/build" turnsourcream823/static-jinja-plus:tagname
+   ```
+   - `WORKDIR` для pyhon-slim `/StaticJinjaPlus/`, для образов ubuntu `/app/StaticJinjaPlus/`
+   - `--rm` для удаления контейнера после завершения работы.
+   - `-v "$(pwd)/templates:/StaticJinjaPlus/templates"`: смонтируйте папку templates с вашего локального компьютера в контейнер, чтобы docker мог получить доступ к вашим шаблонам.
+   - `-v "$(pwd)/build:/StaticJinjaPlus/build"`: смонтируйте папку `build` с вашего локального компьютера в контейнер, чтобы получить результаты работы StaticJinjaPlus.
+   - `tagname` замените на один из [тэгов](https://hub.docker.com/repository/docker/turnsourcream823/static-jinja-plus/tags) из Docker Hub.
 
-Чтобы выложить образ на Docker Hub сначала залогиньтесь:
-```commandline
-docker login
+## Аргументы для создания образа
+В докерфайлах проекта аргументы заданы по умолчанию как:
+```bash
+ARG GIT_TAG=latest
+ARG TEMPLATE_FOLDER=templates
 ```
-При сборке образа укажите ваш логин в названии образа. Например, если мой логин turnsourcream823, то при сборке я воспользуюсь командой:
-```commandline
-docker build -f slim.Dockerfile -t turnsourcream823/static-jinja-plus:0.1.0-slim .
+`GIT_TAG` нужен чтобы задать тег, а `TEMPLATE_FOLDER` чтобы  задать папку в образе для хранения шаблонов.
+
+## Пример создания образа
+Образ `0.1.1-slim`:
+```bash
+docker build -t -f turnsourcream823/static-jinja-plus:0.1.1-slim 0.1/python/Dockerfile . --build-arg GIT_TAG=0_1_1 --build-arg TEMPLATE_FOLDER=new_templates
+docker run -v "$(pwd)/build:/StaticJinjaPlus/build" -v "$(pwd)/new_templates:/StaticJinjaPlus/new_templates" -it turnsourcream823/static-jinja-plus:0.1.1-slim
 ```
-Теперь, чтобы выложить образ я воспользуюсь командой:
-```commandline
-docker pull turnsourcream823/static-jinja-plus
+Образ `latest`:
+```bash
+docker build -t -f turnsourcream823/static-jinja-plus develop/ubuntu/Dockerfile . 
+docker run -v "$(pwd)/build:/app/StaticJinjaPlus/build" -v "$(pwd)/templates:/app/StaticJinjaPlus/templates" -it turnsourcream823/static-jinja-plus
 ```
