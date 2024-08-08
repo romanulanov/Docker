@@ -3,8 +3,8 @@ ARG GIT_TAG=main
 FROM python:3.12-slim as base
 
 WORKDIR /StaticJinjaPlus/
+
 RUN apt-get update \
-    && apt-get install -y git \
     && rm -rf /var/lib/apt/lists/*
 
 FROM base AS tag-0_1_0

@@ -3,7 +3,6 @@ FROM python:3.12-slim
 WORKDIR /StaticJinjaPlus/
 
 RUN apt-get update \
-    && apt-get install -y git \
     && rm -rf /var/lib/apt/lists/*
 
 ADD https://github.com/MrDave/StaticJinjaPlus/archive/refs/heads/main.tar.gz staticjinjaplus.tar.gz 
